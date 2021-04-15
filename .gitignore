@@ -20,4 +20,4 @@
 .idea/**
 *.iml
 
-*/target/*
+target/*
