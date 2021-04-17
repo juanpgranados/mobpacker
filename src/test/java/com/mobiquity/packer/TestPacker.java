@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestPacker {
+class TestPacker {
 
     @Test
     void testPacker(){
@@ -18,18 +18,14 @@ public class TestPacker {
             ClassLoader classLoader = getClass().getClassLoader();
             File inputFile = new File(classLoader.getResource("example_input").getFile());
 
-            String outputData = IOUtils.toString(
-                    classLoader.getResource("example_output"),
-                    "UTF-8"
-            );
-            String altData="x"+System.lineSeparator()+"x"+System.lineSeparator()+"x"+System.lineSeparator()+"x";
+            String outputData = "4"+System.lineSeparator()+
+                    "-"+System.lineSeparator()+
+                    "2,7"+System.lineSeparator()+
+                    "8,9";
             //When
             String result = Packer.pack(inputFile.getPath());
             //Then
-            assertEquals(altData,result);
-        }
-        catch (IOException e){
-            fail("Cannot load test data");
+            assertEquals(outputData,result);
         }
         catch (APIException e){
             fail("Packer throws an APIException");
