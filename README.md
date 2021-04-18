@@ -6,7 +6,7 @@ Each thing you put inside the package has such parameters as index number, weigh
 package has a weight limit. Your goal is to determine which things to put into the package so that the  
 total weight is less than or equal to the package limit and the total cost is as large as possible.  
   
-That problem matches with the well-known knapsack problem .  
+That problem matches with the well-known knapsack problem.  
    
   
 ### Requirements:memo:  
@@ -47,16 +47,16 @@ target/site/jacoco/index.html
 Jacoco has the parameter of cover ratio, if it is not met, the build will fail. You can find it in the ``pom.xml`` file.
 ## Aproach :eyeglasses:
 ### Algorithm :chart:
-After research how to solve the knapsack problem, I found one of the best ways is to use dynamic programming. It consists of making a data table where you put the gain of each possible solution. You iterate over the table increasing the knapsack capacity and looking for the best combination for each item of the list. See also [wikipedia article](https://en.wikipedia.org/wiki/Knapsack_problem).
+After research how to solve the knapsack problem, I found one of the best ways is to use dynamic programming. It consists of making a data table where you put the gain of each possible solution. You iterate over the table increasing the knapsack capacity and looking for the best combination for each item of the list. See also [Wikipedia article](https://en.wikipedia.org/wiki/Knapsack_problem).
 
 The dynamic programming solution algorithm was designed to work with integer values, thus I improved it to work with floating-point weight values. Some logic was added in order to decide which cell should be selected to continue the algorithm execution.
 
 Also, other algorithms can be implemented, the current structure allows new implementations.
 
-### Sorce code structure :chart:
+### Source code structure :chart:
 All packages and classes have been defined following *SOLID* principles and separated concerns.
 
-Some Domain-driven Design concepts were used for object naming an testing.
+Some Domain-driven Design concepts were used for object naming and testing.
 
 Package list under ``com.mobiquity``
 
@@ -70,15 +70,9 @@ Package list under ``com.mobiquity``
 New knapsack solution algorithms can be added by a new class that implements the ``KnapsackProcessor`` interface.
 ### How it works :chart:
 This diagram represents how the library works when is called.
-```mermaid
-sequenceDiagram
-Packer ->> InputFileParser: parse(filePath)
-InputFileParser-->>Packer : List<PackerInput>
-Packer ->> InputValidator: validate(PackerInput)
-Note right of InputValidator: Throws exception<br/>if any constraint<br/>is not met
-Packer ->> KnapsackProcessor: solve(PackerInput)
-KnapsackProcessor-->>Packer : String
-```
+
+![sequence](https://github.com/juanpgranados/mobpacker/blob/master/sequence_diagram.png?raw=true)
+
 ### Other decisions :heavy_check_mark:
 
  - Weight and cost are stored as BigDecimal in order to obtain better precision.
