@@ -39,13 +39,9 @@ public class DynamicProgrammingProcessor implements KnapsackProcessor {
                     BigDecimal weightLeftSolution;
                     BigDecimal usedWeight;
                     // decide which cell it should take based on weight left
-                    if(packageWeight[i - 1][weightLeft.intValue()+1].compareTo(weightLeft)<=0){
-                        weightLeftSolution = solution[i - 1][weightLeft.intValue()+1];
-                        usedWeight = packageWeight[i - 1][weightLeft.intValue()+1];
-                    }else{
-                        weightLeftSolution = solution[i - 1][weightLeft.intValue()];
-                        usedWeight = packageWeight[i - 1][weightLeft.intValue()];
-                    }
+                    int bestColumn = bestWeightLeftSolution(weightLeft,i);
+                    weightLeftSolution = solution[i - 1][bestColumn];
+                    usedWeight = packageWeight[i - 1][bestColumn];
                     // choose better solution between previous cell and current calculated one
                     solution[i][j] = solution[i - 1][j]
                             .max(weightLeftSolution.add(sortedItems.get(i-1).getCost()));
@@ -109,5 +105,19 @@ public class DynamicProgrammingProcessor implements KnapsackProcessor {
             n--;
         }
         return packageItems;
+    }
+
+    /**
+     * Decide which cell it should take based on weight left
+     * @param weightLeft Weight left in the package
+     * @param currentRow Current row of the matrix
+     * @return best column
+     */
+    private int bestWeightLeftSolution(BigDecimal weightLeft, int currentRow){
+        if(packageWeight[currentRow - 1][weightLeft.intValue()+1].compareTo(weightLeft)<=0){
+            return weightLeft.intValue()+1;
+        }else{
+            return weightLeft.intValue();
+        }
     }
 }

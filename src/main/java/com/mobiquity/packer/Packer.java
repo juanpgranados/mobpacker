@@ -5,6 +5,7 @@ import com.mobiquity.knapsack.DynamicProgrammingProcessor;
 import com.mobiquity.knapsack.KnapsackProcessor;
 import com.mobiquity.parser.InputFileParser;
 import com.mobiquity.model.PackerInput;
+import com.mobiquity.validator.InputValidator;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -23,6 +24,9 @@ public class Packer {
     public static String pack(String filePath) throws APIException {
         try {
             List<PackerInput> parsedInput = InputFileParser.parse(filePath);
+            for(PackerInput input:parsedInput){
+                InputValidator.validate(input);
+            }
             KnapsackProcessor processor = new DynamicProgrammingProcessor();
             StringBuilder outputBuilder = new StringBuilder();
             parsedInput.stream().forEach(input->{
