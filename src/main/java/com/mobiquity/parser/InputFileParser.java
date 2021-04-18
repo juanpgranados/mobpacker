@@ -1,5 +1,6 @@
 package com.mobiquity.parser;
 
+import com.mobiquity.exception.APIException;
 import com.mobiquity.model.Item;
 import com.mobiquity.model.PackerInput;
 
@@ -7,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,15 +20,23 @@ public class InputFileParser {
     static final String ITEM_REGEX = "\\((.*?)\\)";
     static final String CURRENCY_SYMBOL = "€";
 
-    static public List<PackerInput> parse(String inputFilePath) throws FileNotFoundException {
+    /**
+     * Parse an input file with packaging problem test cases
+     * @param inputFilePath Input file absolute path
+     * @return
+     * @throws FileNotFoundException
+     */
+    public static List<PackerInput> parse(String inputFilePath) throws FileNotFoundException, APIException {
         File inputFile = new File(inputFilePath);
-        Scanner reader = new Scanner(inputFile);
+        Scanner reader = new Scanner(inputFile, StandardCharsets.UTF_8.name());
         List<PackerInput> inputList = new ArrayList<>();
+        if(!reader.hasNextLine()) throw new APIException("Empty input file");
         while (reader.hasNextLine()) {
             //Read the file
             String data = reader.nextLine();
             //Parse Data
             String[] splitData = data.split(" : ");
+            if(splitData.length != 2) throw new APIException("Invalid input format");
             BigInteger maxWeight = new BigInteger(splitData[0]);
             //Parse items
             List<String> itemDataList = new ArrayList<>();
@@ -49,5 +59,8 @@ public class InputFileParser {
         }
         reader.close();
         return inputList;
+    }
+
+    private InputFileParser() {
     }
 }

@@ -14,6 +14,12 @@ public class Packer {
     private Packer() {
     }
 
+    /**
+     * Solve the packaging problem by reading all test cases in an input file
+     * @param filePath Input file path
+     * @return Text with a line for each test case with the comma-separated item list.
+     * @throws APIException
+     */
     public static String pack(String filePath) throws APIException {
         try {
             List<PackerInput> parsedInput = InputFileParser.parse(filePath);
