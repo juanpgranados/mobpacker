@@ -1,11 +1,9 @@
 package com.mobiquity.packer;
 
 import com.mobiquity.exception.APIException;
-import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 

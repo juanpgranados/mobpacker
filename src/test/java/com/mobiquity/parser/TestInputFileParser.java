@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class TestInputFileParser {
+class TestInputFileParser {
     @Test
     void testEmptyFile(){
         //Given
@@ -25,7 +25,7 @@ public class TestInputFileParser {
         File inputFile = new File(classLoader.getResource("empty_input").getFile());
         // When
         APIException apiException = assertThrows(APIException.class, () -> {
-            Packer.pack(inputFile.getPath());
+            InputFileParser.parse(inputFile.getPath());
         });
         //Then
         assertEquals("Empty input file", apiException.getMessage());
@@ -38,7 +38,20 @@ public class TestInputFileParser {
         File inputFile = new File(classLoader.getResource("wrong_format_input").getFile());
         // When
         APIException apiException = assertThrows(APIException.class, () -> {
-            Packer.pack(inputFile.getPath());
+            InputFileParser.parse(inputFile.getPath());
+        });
+        //Then
+        assertEquals("Invalid input format", apiException.getMessage());
+    }
+
+    @Test
+    void testNoItemsFile(){
+        //Given
+        ClassLoader classLoader = getClass().getClassLoader();
+        File inputFile = new File(classLoader.getResource("noitems_input").getFile());
+        // When
+        APIException apiException = assertThrows(APIException.class, () -> {
+            InputFileParser.parse(inputFile.getPath());
         });
         //Then
         assertEquals("Invalid input format", apiException.getMessage());
