@@ -53,7 +53,7 @@ The dynamic programming solution algorithm was designed to work with integer val
 
 Also, other algorithms can be implemented, the current structure allows new implementations.
 
-### Source code structure :chart:
+### Source code structure :speech_balloon:
 All packages and classes have been defined following *SOLID* principles and separated concerns.
 
 Some Domain-driven Design concepts were used for object naming and testing.
@@ -68,7 +68,7 @@ Package list under ``com.mobiquity``
  - :file_folder:**validator** Helper classes for validating data
 
 New knapsack solution algorithms can be added by a new class that implements the ``KnapsackProcessor`` interface.
-### How it works :chart:
+### How it works :gear:
 This diagram represents how the library works when is called.
 
 ![sequence](https://github.com/juanpgranados/mobpacker/blob/master/sequence_diagram.png?raw=true)
